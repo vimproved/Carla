@@ -86,6 +86,18 @@ CPU_RISCV64 = true
 endif
 
 # ---------------------------------------------------------------------------------------------------------------------
+# Autodetect the compiler
+
+COMPILER_VERSION = $(shell $(CC) --version)
+
+ifneq (,$(findstring clang,$(COMPILER_VERSION)))
+CLANG = true
+endif
+ifneq (,$(findstring gcc,$(COMPILER_VERSION)))
+GCC = true
+endif
+
+# ---------------------------------------------------------------------------------------------------------------------
 # Set PKG_CONFIG (can be overridden by environment variable)
 
 ifeq ($(WASM),true)
